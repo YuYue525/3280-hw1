@@ -499,8 +499,9 @@ int main(int argc, char** argv)
             
             if(argv[5][1]=='1')
             {
+                //printf("yes");
                 Bitmap ascii_bmp(8 * new_col, 8 * new_row);
-                int red, green,blue;
+                unsigned char red, green,blue;
                 char *path[8];
                 path[0] = "shades/0.bmp\0";
                 path[1] = "shades/1.bmp\0";
@@ -517,13 +518,15 @@ int main(int argc, char** argv)
                     {
                         if(argv[1][2]=='s')
                         {
+                            //printf("yes");
                             Bitmap tmp(path[7-arr[i][j]]);
                             for(int m = 0; m < 8; m++)
                             {
                                 for (int n = 0; n<8; n++)
                                 {
-                                        
+                                    //printf("yes");
                                     tmp.getColor(n, m, red, green, blue);
+                                    printf("%d", (int)red);
                                     ascii_bmp.setColor(j*8+n, i*8+m, red, green, blue);
                                 }
                             }
