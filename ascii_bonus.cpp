@@ -442,16 +442,16 @@ int main(int argc, char** argv)
                             if (argv[1][2] == 's')
                             {
                                 if(arr[i][j]==' ')
-                                    fprintf(html_file, "<a>&nbsp;");
+                                    fprintf(html_file, "<a>&nbsp;</a>");
                                 else
-                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[7 - arr[i][j]]);
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c</a>", new_red, new_green, new_blue, shades[7 - arr[i][j]]);
                             }
                             else if (argv[1][2] == 'p')
                             {
                                 if (arr[i][j] == ' ')
-                                    fprintf(html_file, "<a>&nbsp;");
+                                    fprintf(html_file, "<a>&nbsp;</a>");
                                 else
-                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[arr[i][j]]);
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c</a>", new_red, new_green, new_blue, shades[arr[i][j]]);
                             }
                         }
                         else if (argv[3][0] == 'b')
@@ -465,16 +465,16 @@ int main(int argc, char** argv)
                             if (argv[1][2] == 's')
                             {
                                 if (arr[i][j] == ' ')
-                                    fprintf(html_file, "<a>&nbsp;");
+                                    fprintf(html_file, "<a>&nbsp;</a>");
                                 else
-                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[7 - arr[i][j]]);
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c</a>", red, green, blue, shades[7 - arr[i][j]]);
                             }
                             else if (argv[1][2] == 'p')
                             {
                                 if (arr[i][j] == ' ')
-                                    fprintf(html_file, "<a >&nbsp;");
+                                    fprintf(html_file, "<a >&nbsp;</a>");
                                 else
-                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[arr[i][j]]);
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c</a>", red, green, blue, shades[arr[i][j]]);
                             }
                         }
                     }
