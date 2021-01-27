@@ -526,7 +526,7 @@ int main(int argc, char** argv)
                                 {
                                     //printf("yes");
                                     tmp.getColor(n, m, red, green, blue);
-                                    printf("%d", (int)red);
+                                    //printf("%d", (int)red);
                                     ascii_bmp.setColor(j*8+n, i*8+m, red, green, blue);
                                 }
                             }
