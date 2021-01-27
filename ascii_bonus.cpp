@@ -318,6 +318,7 @@ int main(int argc, char** argv)
                 }
                 else if (argv[3][0] == 'b')
                 {
+                    /*
                     int resized_grayscale = 0;
                     if (i < (new_row - row_remain) || j < (new_col - col_remain))
                     {
@@ -366,9 +367,15 @@ int main(int argc, char** argv)
                             }
                         }
                         resized_grayscale = resized_grayscale / ((row_filt+1) * (col_filt+1));
-                    }
+                    }*/
 
                     //printf("%f ", resized_grayscale);
+                    int x, y;
+                    x = (int)(i / new_row * height);
+                    y = (int)(j / new_col * width);
+                    x = x>(height-1)?(height-1):x;
+                    y = y>(width-1)?(width-1):y;
+                    image_data.getColor(y, x, red, green, blue);
                     resized_image.setColor(j, i, (unsigned char)resized_grayscale, (unsigned char)resized_grayscale, (unsigned char)resized_grayscale);
                 }
             }
