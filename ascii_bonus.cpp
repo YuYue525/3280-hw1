@@ -405,7 +405,6 @@ int main(int argc, char** argv)
             fclose(file);
         };
         //bonus output:
-                //bonus output:
         if(argc > 4)
         {
             // printf("%d", argc);
@@ -417,10 +416,7 @@ int main(int argc, char** argv)
                 fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<style>p{font-family:monospace;line-height:0.01em;}\n</style>\n</head>\n" );
                 fprintf(html_file, "<body>\n<style>p{font-family:monospace;line-height:0.01em;}\n</style>\n");
                 int a = 0, b = 0, c = 0;
-                //fprintf(html_file, "<p class=\"small\">\n");
-                //fprintf(html_file, "<a style = \"color:rgb(%d,%d,%d);\">&nbsp;</a>", a, b, c);
-                //fprintf(html_file, "</p >\n");
-                
+
                 for (int i = 0; i < new_row; i++)
                 {
                     fprintf(html_file,"<p class=\"small\">\n");
@@ -430,7 +426,6 @@ int main(int argc, char** argv)
 
                         if (argv[3][0] == 'n')
                         {
-                            //fprintf(html_file, "<a style = \"color:rgb(%d,%d,%d);\">&nbsp;</a>", a, b, c);
                             int new_red=0, new_green=0, new_blue=0, gray = 0;
                             for (int m = i * row_filt; m < (i + 1) * row_filt; m++)
                             {
@@ -445,7 +440,6 @@ int main(int argc, char** argv)
                             new_red /= (row_filt * col_filt);
                             new_green /= (row_filt * col_filt);
                             new_blue /= (row_filt * col_filt);
-                            //printf("%f ", resized_grayscale);
                             if (argv[1][2] == 's')
                             {
                                 if(shades[7-arr[i][j]] == ' ')
@@ -463,7 +457,6 @@ int main(int argc, char** argv)
                         }
                         else if (argv[3][0] == 'b')
                         {
-                            //fprintf(html_file, "<a style = \"color:rgb(%d,%d,%d);\">&nbsp;</a>", a, b, c);
                             int x, y;
                             x = (int)(i / (double)new_row * (double)height);
                             y = (int)(j / (double)new_col * (double)width);
@@ -472,7 +465,6 @@ int main(int argc, char** argv)
                             image_data.getColor(y, x, red, green, blue);
                             if (argv[1][2] == 's')
                             {
-                                //fprintf(html_file, "<a style = \"color:rgb(%d,%d,%d);\">&nbsp;</a>", a, b, c);
                                 if (shades[7-arr[i][j]] == ' ')
                                 {
                                     fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">&nbsp;</a>", red, green, blue);
@@ -499,7 +491,6 @@ int main(int argc, char** argv)
             
             if(argv[5][1]=='1')
             {
-                //printf("yes");
                 Bitmap ascii_bmp(8 * new_col, 8 * new_row);
                 unsigned char red, green,blue;
                 char *path[8];
@@ -518,15 +509,12 @@ int main(int argc, char** argv)
                     {
                         if(argv[1][2]=='s')
                         {
-                            //printf("yes");
                             Bitmap tmp(path[7-arr[i][j]]);
                             for(int m = 0; m < 8; m++)
                             {
                                 for (int n = 0; n<8; n++)
                                 {
-                                    //printf("yes");
                                     tmp.getColor(n, m, red, green, blue);
-                                    //printf("%d", (int)red);
                                     ascii_bmp.setColor(j*8+n, i*8+m, red, green, blue);
                                 }
                             }
@@ -548,7 +536,6 @@ int main(int argc, char** argv)
                         }
                     }
                 }
-                
                 ascii_bmp.save("ASCII_bmp.bmp");
             }
 
