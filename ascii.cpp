@@ -43,6 +43,8 @@ int main(int argc, char** argv)
     int width = image_data.getWidth();
     int height = image_data.getHeight();
     
+    Bitmap gray_image(width, height);
+    
     unsigned char red, green, blue;
     double grayscale;
     
@@ -52,7 +54,7 @@ int main(int argc, char** argv)
         {
             image_data.getColor(j, i, red, green, blue);
             grayscale = 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
-            image_data.setColor(j, i, (unsigned char)grayscale, (unsigned char)grayscale, (unsigned char)grayscale);
+            gray_image.setColor(j, i, (unsigned char)grayscale, (unsigned char)grayscale, (unsigned char)grayscale);
             //printf("%f ", grayscale);
         }
     }
@@ -103,7 +105,7 @@ int main(int argc, char** argv)
             {
                 for(int n = j*col_filt;n<(j+1)*col_filt;n++)
                 {
-                    image_data.getColor(n, m, red, green, blue);
+                    gray_image.getColor(n, m, red, green, blue);
                     resized_grayscale += red;
                 }
             }
@@ -185,6 +187,7 @@ int main(int argc, char** argv)
 	//  free memory
     image_data.~Bitmap();
     resized_image.~Bitmap();
+    gray_image.~Bitmap();
     
     for (int i = 0; i<new_row; i++)
         free(arr[i]);
