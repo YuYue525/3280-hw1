@@ -409,11 +409,11 @@ int main(int argc, char** argv)
             if(argv[5][0]=='1')
             {
                 FILE * html_file = fopen("ASCII_art.html","w");
-                fprintf(fout, "<style>\nbody\n{font-family:Courier New;\n}\np.small{line-height:0.1em}\n</style>\n");
-                fprintf(fout, "<body>\n");
-                fprintf(fout, "</body>");
-                fprintf(fout, "</html>\n");
-                fclose(fout);
+                fprintf(html_file, "<style>\nbody\n{font-family:Courier New;\n}\np.small{line-height:0.1em}\n</style>\n");
+                fprintf(html_file, "<body>\n");
+                fprintf(html_file, "</body>");
+                fprintf(html_file, "</html>\n");
+                fclose(html_file);
             }
         }
         
