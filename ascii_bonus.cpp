@@ -414,8 +414,8 @@ int main(int argc, char** argv)
             {
                 char* space = "&#160;";
                 FILE * html_file = fopen("ASCII_art.html","w");
-                fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<style>p{font-family:monospace;line-height:1%}\n</style>\n</head>\n" );
-                fprintf(html_file, "<body>\n");
+                fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<style>p{font-family:monospace;line-height:0.01em;}\n</style>\n</head>\n" );
+                fprintf(html_file, "<body>\n<style>p{font-family:monospace;line-height:0.01em;}\n</style>\n");
                 int a = 0, b = 0, c = 0;
                 //fprintf(html_file, "<p class=\"small\">\n");
                 //fprintf(html_file, "<a style = \"color:rgb(%d,%d,%d);\">&nbsp;</a>", a, b, c);
