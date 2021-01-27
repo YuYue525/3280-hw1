@@ -41,10 +41,14 @@ int main(int argc, char** argv)
 	//
     //-----------------------------------------standard requirements-----------------------------------------//
     // when we implement the standard requirement, argv[1] must be 's' or 'p'. We use this property to distinguish enhancement part and the standard one 
+    int width = image_data.getWidth();
+    int height = image_data.getHeight();
+    
+    Bitmap gray_image(width, height);
+    
     if (argv[1][0] == 's' || argv[1][0] == 'p')
     {
-        int width = image_data.getWidth();
-        int height = image_data.getHeight();
+
 
         unsigned char red, green, blue;
         double grayscale;
@@ -55,7 +59,7 @@ int main(int argc, char** argv)
             {
                 image_data.getColor(j, i, red, green, blue);
                 grayscale = 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
-                image_data.setColor(j, i, (unsigned char)grayscale, (unsigned char)grayscale, (unsigned char)grayscale);
+                gray_image.setColor(j, i, (unsigned char)grayscale, (unsigned char)grayscale, (unsigned char)grayscale);
                 //printf("%f ", grayscale);
             }
         }
@@ -106,7 +110,7 @@ int main(int argc, char** argv)
                 {
                     for (int n = j * col_filt; n < (j + 1) * col_filt; n++)
                     {
-                        image_data.getColor(n, m, red, green, blue);
+                        gray_image.getColor(n, m, red, green, blue);
                         resized_grayscale += red;
                     }
                 }
@@ -188,6 +192,7 @@ int main(int argc, char** argv)
         //  free memory
         image_data.~Bitmap();
         resized_image.~Bitmap();
+        gray_image.~Bitmap();
 
         for (int i = 0; i < new_row; i++)
             free(arr[i]);
@@ -198,8 +203,6 @@ int main(int argc, char** argv)
     //-----------------------------------------enhancement requirements-----------------------------------------//
     else if (argv[1][0] == 'e')// We test the enhancement part when the argv[1] is 'e'
     {
-        int width = image_data.getWidth();
-        int height = image_data.getHeight();
 
         unsigned char red, green, blue;
         double grayscale;
@@ -234,7 +237,7 @@ int main(int argc, char** argv)
                     }
                 }
                     
-                image_data.setColor(j, i, (unsigned char)grayscale, (unsigned char)grayscale, (unsigned char)grayscale);
+                gray_image.setColor(j, i, (unsigned char)grayscale, (unsigned char)grayscale, (unsigned char)grayscale);
                 //printf("%f ", grayscale);
             }
         }
@@ -308,7 +311,7 @@ int main(int argc, char** argv)
                     {
                         for (int n = j * col_filt; n < (j + 1) * col_filt; n++)
                         {
-                            image_data.getColor(n, m, red, green, blue);
+                            gray_image.getColor(n, m, red, green, blue);
                             resized_grayscale += red;
                         }
                     }
@@ -327,7 +330,7 @@ int main(int argc, char** argv)
                     y = (int)(j / (double)new_col * (double)width);
                     x = x>(height-1)?(height-1):x;
                     y = y>(width-1)?(width-1):y;
-                    image_data.getColor(y, x, red, green, blue);
+                    gray_image.getColor(y, x, red, green, blue);
                     resized_grayscale = red;
                     resized_image.setColor(j, i, (unsigned char)resized_grayscale, (unsigned char)resized_grayscale, (unsigned char)resized_grayscale);
                 }
@@ -409,6 +412,7 @@ int main(int argc, char** argv)
             //Colored ASCII Art html
             if(argv[5][0]=='1')
             {
+               
                 FILE * html_file = fopen("ASCII_art.html","w");
                 fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<style>{font-family:Courier New;line-height:0.1em;}\n</style>\n</head>\n" );
                 fprintf(html_file, "<body>\n");
@@ -431,14 +435,24 @@ int main(int argc, char** argv)
                                     new_blue += blue;
                                 }
                             }
-                            new_red /= new_red (row_filt * col_filt);
-                            new_green /= new_green (row_filt * col_filt);
-                            new_blue /= new_blue (row_filt * col_filt);
+                            new_red /= (row_filt * col_filt);
+                            new_green /= (row_filt * col_filt);
+                            new_blue /= (row_filt * col_filt);
                             //printf("%f ", resized_grayscale);
                             if (argv[1][2] == 's')
-                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[7 - arr[i][j]]);
+                            {
+                                if(arr[i][j]==' ')
+                                    fprintf(html_file, "<a>&nbsp;");
+                                else
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[7 - arr[i][j]]);
+                            }
                             else if (argv[1][2] == 'p')
-                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[arr[i][j]]);
+                            {
+                                if (arr[i][j] == ' ')
+                                    fprintf(html_file, "<a>&nbsp;");
+                                else
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[arr[i][j]]);
+                            }
                         }
                         else if (argv[3][0] == 'b')
                         {
@@ -449,23 +463,35 @@ int main(int argc, char** argv)
                             y = y>(width-1)?(width-1):y;
                             image_data.getColor(y, x, red, green, blue);
                             if (argv[1][2] == 's')
-                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[7 - arr[i][j]]);
+                            {
+                                if (arr[i][j] == ' ')
+                                    fprintf(html_file, "<a>&nbsp;");
+                                else
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[7 - arr[i][j]]);
+                            }
                             else if (argv[1][2] == 'p')
-                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[arr[i][j]]);
+                            {
+                                if (arr[i][j] == ' ')
+                                    fprintf(html_file, "<a >&nbsp;");
+                                else
+                                    fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[arr[i][j]]);
+                            }
                         }
                     }
                     fprintf(html_file,"</p>\n");
                 }
                 
-                fprintf(html_file, "</body>");
+                fprintf(html_file, "</body>\n");
                 fprintf(html_file, "</html>\n");
                 fclose(html_file);
+                
             }
         }
         
         //  free memory
         image_data.~Bitmap();
         resized_image.~Bitmap();
+        gray_image.~Bitmap();
 
         for (int i = 0; i < new_row; i++)
             free(arr[i]);
