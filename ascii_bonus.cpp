@@ -328,7 +328,7 @@ int main(int argc, char** argv)
                     x = x>(height-1)?(height-1):x;
                     y = y>(width-1)?(width-1):y;
                     image_data.getColor(y, x, red, green, blue);
-                    resized_grayscal = red;
+                    resized_grayscale = red;
                     resized_image.setColor(j, i, (unsigned char)resized_grayscale, (unsigned char)resized_grayscale, (unsigned char)resized_grayscale);
                 }
             }
@@ -400,11 +400,11 @@ int main(int argc, char** argv)
                 }
             }
             fclose(file);
-        }
-
+        };
         //bonus output:
         if(argc > 4)
         {
+            // printf("%d", argc);
             //Colored ASCII Art html
             if(argv[5][0]=='1')
             {
