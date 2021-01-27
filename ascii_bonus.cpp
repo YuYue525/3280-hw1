@@ -495,8 +495,60 @@ int main(int argc, char** argv)
                 fprintf(html_file, "</body>\n");
                 fprintf(html_file, "</html>\n");
                 fclose(html_file);
-                
             }
+            
+            if(argv[5][1]=='1')
+            {
+                Bitmap ascii_bmp(8 * new_col, 8 * new_row);
+                int red, green,blue;
+                char *path[8];
+                path[0] = "shades/0.bmp\0";
+                path[1] = "shades/1.bmp\0";
+                path[2] = "shades/2.bmp\0";
+                path[3] = "shades/3.bmp\0";
+                path[4] = "shades/4.bmp\0";
+                path[5] = "shades/5.bmp\0";
+                path[6] = "shades/6.bmp\0";
+                path[7] = "shades/7.bmp\0";
+                
+                for(int i = 0; i< new_row; i++)
+                {
+                    for(int j = 0; j<new_col; j++)
+                    {
+                        if(argv[1][2]=='s')
+                        {
+                            Bitmap tmp(path[7-arr[i][j]]);
+                            for(int m = 0; m < 8; m++)
+                            {
+                                for (int n = 0; n<8; n++)
+                                {
+                                        
+                                    tmp.getColor(n, m, red, green, blue);
+                                    ascii_bmp.setColor(j*8+n, i*8+m, red, green, blue);
+                                }
+                            }
+                            tmp.~Bitmap();
+                        }
+                        else if(argv[1][2]=='p')
+                        {
+                            Bitmap tmp(path[arr[i][j]]);
+                            for(int m = 0; m < 8; m++)
+                            {
+                                for (int n = 0; n<8; n++)
+                                {
+                                        
+                                    tmp.getColor(n, m, red, green, blue);
+                                    ascii_bmp.setColor(j*8+n, i*8+m, red, green, blue);
+                                }
+                            }
+                            tmp.~Bitmap();
+                        }
+                    }
+                }
+                
+                ascii_bmp.save("ASCII_bmp.bmp");
+            }
+
         }
         
         //  free memory
