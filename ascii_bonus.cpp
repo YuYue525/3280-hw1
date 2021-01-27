@@ -402,6 +402,7 @@ int main(int argc, char** argv)
             fclose(file);
         };
         //bonus output:
+                //bonus output:
         if(argc > 4)
         {
             // printf("%d", argc);
@@ -409,8 +410,53 @@ int main(int argc, char** argv)
             if(argv[5][0]=='1')
             {
                 FILE * html_file = fopen("ASCII_art.html","w");
-                fprintf(html_file, "<style>\nbody\n{font-family:Courier New;\n}\np.small{line-height:0.1em}\n</style>\n");
+                fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<style>{font-family:Courier New;line-height:0.1em;}\n</style>\n</head>\n" );
                 fprintf(html_file, "<body>\n");
+                
+                for (int i = 0; i < new_row; i++)
+                {
+                    fprintf(html_file,"<p class=\"small\">\n");
+                    for (int j = 0; j < new_col; j++)
+                    {
+                        if (argv[3][0] == 'n')
+                        {
+                            int new_red=0, new_green=0, new_blue=0, gray = 0;
+                            for (int m = i * row_filt; m < (i + 1) * row_filt; m++)
+                            {
+                                for (int n = j * col_filt; n < (j + 1) * col_filt; n++)
+                                {
+                                    image_data.getColor(n, m, red, green, blue);
+                                    new_red += red;
+                                    new_green += green;
+                                    new_blue += blue;
+                                }
+                            }
+                            new_red /= new_red (row_filt * col_filt);
+                            new_green /= new_green (row_filt * col_filt);
+                            new_blue /= new_blue (row_filt * col_filt);
+                            //printf("%f ", resized_grayscale);
+                            if (argv[1][2] == 's')
+                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[7 - arr[i][j]]);
+                            else if (argv[1][2] == 'p')
+                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", new_red, new_green, new_blue, shades[arr[i][j]]);
+                        }
+                        else if (argv[3][0] == 'b')
+                        {
+                            int x, y;
+                            x = (int)(i / (double)new_row * (double)height);
+                            y = (int)(j / (double)new_col * (double)width);
+                            x = x>(height-1)?(height-1):x;
+                            y = y>(width-1)?(width-1):y;
+                            image_data.getColor(y, x, red, green, blue);
+                            if (argv[1][2] == 's')
+                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[7 - arr[i][j]]);
+                            else if (argv[1][2] == 'p')
+                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c", red, green, blue, shades[arr[i][j]]);
+                        }
+                    }
+                    fprintf(html_file,"</p>\n");
+                }
+                
                 fprintf(html_file, "</body>");
                 fprintf(html_file, "</html>\n");
                 fclose(html_file);
