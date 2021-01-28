@@ -550,7 +550,7 @@ int main(int argc, char** argv)
                             for (int n = 0; n <block_size;n++)
                             {
                                 unsigned char red, green, blue;
-                                image_data.getColor(j*block_size+n; i*block_size+m, red, green, blue);
+                                image_data.getColor( (j*block_size+n); (i*block_size+m), red, green, blue);
                                 mix_red += (int)red;
                                 mix_green +=(int)green;
                                 mix_blue += (int)blue;
@@ -562,11 +562,11 @@ int main(int argc, char** argv)
                         for(int m = 0; m < block_size; m++)
                         {
                             for (int n = 0; n <block_size;n++)
-                                pixel_bmp.setColor(j*block_size+n; i*block_size+m, (unsigned char)mix_red, (unsigned char)mix_green, (unsigned char)mix_blue);
+                                pixel_bmp.setColor( (j*block_size+n); (i*block_size+m), (unsigned char)mix_red, (unsigned char)mix_green, (unsigned char)mix_blue);
                         }
                     }
                 }
-                pixel_bmp.save("pixel_bmp.bmp")
+                pixel_bmp.save("pixel_bmp.bmp");
             }
             
             
