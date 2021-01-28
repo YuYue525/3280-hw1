@@ -620,7 +620,7 @@ int main(int argc, char** argv)
                     fprintf(html_file, "</pre>\n");
                 }
                 
-                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*(a + 1)/len].style.display = 'block';a = (a + 1)-len*(a+1)/ len;}, 40);}());</script></body>\n");
+                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*Math.floor((a + 1)/len)].style.display = 'block';a = (a + 1)-len*Math.floor((a+1)/ len);}, 40);}());</script></body>\n");
                 fprintf(html_file, "</html>\n");
                 fclose(html_file);
             }
