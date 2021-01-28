@@ -413,8 +413,8 @@ int main(int argc, char** argv)
             {
                 char* space = "&#160;";
                 FILE * html_file = fopen("ascii_art.html","w");
-                fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<style>p{font-family:monospace;line-height:0.01em;}\n</style>\n</head>\n" );
-                fprintf(html_file, "<body>\n<style>p{font-family:monospace;line-height:0.01em;}\n</style>\n");
+                fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII artn</title>\n</head>\n");
+                fprintf(html_file, "<body>\n<style>html{font-family:monospace;line-height:0.01em;background-color:black;}</style>\n<div id=\"images\">\n");
 
                 for (int i = 0; i < new_row; i++)
                 {
