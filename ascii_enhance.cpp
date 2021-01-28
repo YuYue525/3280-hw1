@@ -611,7 +611,7 @@ int main(int argc, char** argv)
                             if (shades[(int)(gray/32)] == ' ')
                                 fprintf(html_file, "&nbsp;");
                             else
-                                fprintf(html_file, "%c"[(int)(gray/32)]);
+                                fprintf(html_file, "%c",shades[(int)(gray/32)]);
                         }
                     }
                     
