@@ -555,9 +555,9 @@ int main(int argc, char** argv)
                                 mix_blue += (int)blue;
                             }
                         }
-                        mix_red /= (block_size)*(block_size);
-                        mix_green /= (block_size)*(block_size);
-                        mix_blue /= (block_size)*(block_size);
+                        mix_red /= ((block_size)*(block_size));
+                        mix_green /= ((block_size)*(block_size));
+                        mix_blue /= ((block_size)*(block_size));
                         for(int m = 0; m < block_size; m++)
                         {
                             for (int n = 0; n <block_size;n++)
@@ -581,6 +581,8 @@ int main(int argc, char** argv)
                 FILE * html_file = fopen("animation.html","w");
                 fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
                 fprintf(html_file, "<body>\n<style>html{background-color:black;color: white;}</style>\n<div id=\"images\">\n");
+                Bitmap frame(image_path[0]);
+                
                 for(int k = 0; k<10; k++)
                 {
                     fprintf(html_file, "<pre>\n" );
@@ -607,7 +609,7 @@ int main(int argc, char** argv)
                                     gray += 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
                                 }
                             }
-                            gray = (int)gray/(block_size)*(block_size);
+                            gray = (int)gray/((block_size)*(block_size));
                             if (shades[(int)(gray/32)] == ' ')
                                 fprintf(html_file, "&nbsp;");
                             else
@@ -617,7 +619,8 @@ int main(int argc, char** argv)
                     
                     fprintf(html_file, "</pre>\n");
                 }
-                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a + 1)%len].style.display = 'block';a = (a + 1) % len;}, 40);}());</script></body>\n");
+                
+                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*(a + 1)/len].style.display = 'block';a = (a + 1)-len*(a+1)/ len;}, 40);}());</script></body>\n");
                 fprintf(html_file, "</html>\n");
                 fclose(html_file);
             }
