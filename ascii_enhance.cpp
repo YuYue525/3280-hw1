@@ -576,7 +576,7 @@ int main(int argc, char** argv)
                 image_path[6] = "animation/6.bmp\0";image_path[7] = "animation/7.bmp\0";
                 image_path[8] = "animation/8.bmp\0";image_path[9] = "animation/9.bmp\0";
                 char* space = "&#160;";
-                FILE * html_file = fopen("animation_colored.html","w");
+                FILE * html_file = fopen("animation.html","w");
                 fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
                 fprintf(html_file, "<body>\n<style>html{background-color:white;}</style>\n<div id=\"images\">\n");
                 Bitmap frame(image_path[0]);
@@ -637,7 +637,7 @@ int main(int argc, char** argv)
             image_path[6] = "animation/6.bmp\0";image_path[7] = "animation/7.bmp\0";
             image_path[8] = "animation/8.bmp\0";image_path[9] = "animation/9.bmp\0";
             char* space = "&#160;";
-            FILE * html_file = fopen("animation.html","w");
+            FILE * html_file = fopen("colored_animation.html","w");
             fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
             fprintf(html_file, "<body>\n<style>html{background-color:black;color: white;}</style>\n<div id=\"images\">\n");
             Bitmap frame(image_path[0]);
