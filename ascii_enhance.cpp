@@ -686,6 +686,67 @@ int main(int argc, char** argv)
                 fclose(html_file);
             }
             
+            if(argv[5][5] == '1')
+            {
+                char *image_path[10];
+                image_path[0] = "animation/0.bmp\0";image_path[1] = "animation/1.bmp\0";
+                image_path[2] = "animation/2.bmp\0";image_path[3] = "animation/3.bmp\0";
+                image_path[4] = "animation/4.bmp\0";image_path[5] = "animation/5.bmp\0";
+                image_path[6] = "animation/6.bmp\0";image_path[7] = "animation/7.bmp\0";
+                image_path[8] = "animation/8.bmp\0";image_path[9] = "animation/9.bmp\0";
+                char* space = "&#160;";
+                FILE * html_file = fopen("pixel_animation.html","w");
+                fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
+                fprintf(html_file, "<body>\n<style>html{background-color:black;}</style>\n<div id=\"images\">\n");
+                Bitmap frame(image_path[0]);
+                
+                for(int k = 0; k<10; k++)
+                {
+                    fprintf(html_file, "<pre>\n" );
+                    
+                    Bitmap frame(image_path[k]);
+                    int frame_width = frame.getWidth();
+                    int frame_height = frame.getHeight();
+                    int block_size = (frame_width / 50)<(frame_height / 50)? (frame_width / 50):(frame_height / 50);
+                    int ascii_width = (frame_width / block_size);
+                    int ascii_height = (frame_height / block_size);
+                    
+                    for(int i = 0; i <ascii_height; i++)
+                    {
+                        fprintf(html_file,"\n");
+                        for(int j = 0; j<ascii_width; j++)
+                        {
+                            double gray=0;
+                            double new_red = 0, new_green = 0, new_blue = 0;
+                            for(int m = 0; m < block_size; m++)
+                            {
+                                for (int n = 0; n <block_size;n++)
+                                {
+                                    unsigned char red, green, blue;
+                                    frame.getColor( (j*block_size+n), (i*block_size+m), red, green, blue);
+                                    gray += 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
+                                    new_red += red;
+                                    new_green += green;
+                                    new_blue += blue;
+                                }
+                            }
+                            gray = (int)gray/((block_size)*(block_size));
+                            new_red = (int) new_red/((block_size)*(block_size));
+                            new_green = (int) new_green/((block_size)*(block_size));
+                            new_blue = (int) new_blue/((block_size)*(block_size));
+                            fprintf(html_file, "<a style=\"background-color:rgb(%d,%d,%d);\">&nbsp;</a>", (int)new_red, (int)new_green, (int)new_blue);
+                                
+                        }
+                    }
+                    
+                    fprintf(html_file, "</pre>\n");
+                }
+                
+                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*Math.floor((a + 1)/len)].style.display = 'block';a = (a + 1)-len*Math.floor((a+1)/ len);}, 100);}());</script></body>\n");
+                fprintf(html_file, "</html>\n");
+                fclose(html_file);
+            }
+            
         }
         
         //  free memory
