@@ -401,7 +401,7 @@ int main(int argc, char** argv)
                 }
             }
             fclose(file);
-        };
+        }
         //bonus output:
         if(argc > 4)
         {
@@ -674,7 +674,7 @@ int main(int argc, char** argv)
                             if (shades[(int)(gray/32)] == ' ')
                                 fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">&nbsp;</a>", (int)new_red, (int)new_green, (int)new_blue);
                             else
-                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c</a>",shades[(int)(gray/32)], (int)new_red, (int)new_green, (int)new_blue);
+                                fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c</a>", (int)new_red, (int)new_green, (int)new_blue, shades[(int)(gray/32)]);
                         }
                     }
                     
@@ -687,10 +687,6 @@ int main(int argc, char** argv)
             }
             
         }
-        
-
-    
-        
         
         //  free memory
         image_data.~Bitmap();
