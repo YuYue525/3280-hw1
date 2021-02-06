@@ -618,7 +618,7 @@ int main(int argc, char** argv)
                     fprintf(html_file, "</pre>\n");
                 }
                 
-                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*Math.floor((a + 1)/len)].style.display = 'block';a = (a + 1)-len*Math.floor((a+1)/ len);}, 40);}());</script></body>\n");
+                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*Math.floor((a + 1)/len)].style.display = 'block';a = (a + 1)-len*Math.floor((a+1)/ len);}, 100);}());</script></body>\n");
                 fprintf(html_file, "</html>\n");
                 fclose(html_file);
             }
@@ -634,7 +634,7 @@ int main(int argc, char** argv)
                 char* space = "&#160;";
                 FILE * html_file = fopen("colored_animation.html","w");
                 fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
-                fprintf(html_file, "<body>\n<style>html{background-color:white;}</style>\n<div id=\"images\">\n");
+                fprintf(html_file, "<body>\n<style>html{background-color:black;}</style>\n<div id=\"images\">\n");
                 Bitmap frame(image_path[0]);
                 
                 for(int k = 0; k<10; k++)
@@ -681,7 +681,7 @@ int main(int argc, char** argv)
                     fprintf(html_file, "</pre>\n");
                 }
                 
-                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*Math.floor((a + 1)/len)].style.display = 'block';a = (a + 1)-len*Math.floor((a+1)/ len);}, 40);}());</script></body>\n");
+                fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*Math.floor((a + 1)/len)].style.display = 'block';a = (a + 1)-len*Math.floor((a+1)/ len);}, 100);}());</script></body>\n");
                 fprintf(html_file, "</html>\n");
                 fclose(html_file);
             }
