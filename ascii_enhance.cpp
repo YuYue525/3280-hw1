@@ -258,7 +258,7 @@ int main(int argc, char** argv)
                     max_col = max_col * 10 + argv[3][i] - '0';
                 for (i += 1; argv[3][i] != '\0'; i++)
                     max_row = max_row * 10 + argv[3][i] - '0';
-                //printf("%d\n", max_row);
+
                 if (max_row == 0)
                 {
                     col_filt = width > height ? ((int)ceil((double)width / (double)max_col)) : ((int)ceil((double)height / (double)max_col));
@@ -281,7 +281,7 @@ int main(int argc, char** argv)
                     col = col * 10 + argv[3][i] - '0';
                 for (i += 1; argv[3][i] != '\0'; i++)
                     row = row * 10 + argv[3][i] - '0';
-                //printf("%d\n", max_row);
+
                 col_filt = width/col;
                 col_remain = width % col;
                 row_filt = height / row;
@@ -291,8 +291,6 @@ int main(int argc, char** argv)
                 new_row = row;
 
             }
-            //printf("%d ", col_filt);
-            //printf("%d\n", col_remain);
         }
 
         //printf("%d\n", new_row);
@@ -578,9 +576,9 @@ int main(int argc, char** argv)
                 image_path[6] = "animation/6.bmp\0";image_path[7] = "animation/7.bmp\0";
                 image_path[8] = "animation/8.bmp\0";image_path[9] = "animation/9.bmp\0";
                 char* space = "&#160;";
-                FILE * html_file = fopen("animation.html","w");
+                FILE * html_file = fopen("animation_colored.html","w");
                 fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
-                fprintf(html_file, "<body>\n<style>html{background-color:black;color: white;}</style>\n<div id=\"images\">\n");
+                fprintf(html_file, "<body>\n<style>html{background-color:white;}</style>\n<div id=\"images\">\n");
                 Bitmap frame(image_path[0]);
                 
                 for(int k = 0; k<10; k++)
@@ -600,6 +598,7 @@ int main(int argc, char** argv)
                         for(int j = 0; j<ascii_width; j++)
                         {
                             double gray=0;
+                            double new_red = 0, new_green = 0, new_blue = 0;
                             for(int m = 0; m < block_size; m++)
                             {
                                 for (int n = 0; n <block_size;n++)
@@ -607,6 +606,9 @@ int main(int argc, char** argv)
                                     unsigned char red, green, blue;
                                     frame.getColor( (j*block_size+n), (i*block_size+m), red, green, blue);
                                     gray += 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
+                                    new_red += red;
+                                    new_green += green;
+                                    new_blue += blue;
                                 }
                             }
                             gray = (int)gray/((block_size)*(block_size));
@@ -626,7 +628,65 @@ int main(int argc, char** argv)
             }
         }
         
-
+        if(argv[5][4] == '1')
+        {
+            char *image_path[10];
+            image_path[0] = "animation/0.bmp\0";image_path[1] = "animation/1.bmp\0";
+            image_path[2] = "animation/2.bmp\0";image_path[3] = "animation/3.bmp\0";
+            image_path[4] = "animation/4.bmp\0";image_path[5] = "animation/5.bmp\0";
+            image_path[6] = "animation/6.bmp\0";image_path[7] = "animation/7.bmp\0";
+            image_path[8] = "animation/8.bmp\0";image_path[9] = "animation/9.bmp\0";
+            char* space = "&#160;";
+            FILE * html_file = fopen("animation.html","w");
+            fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
+            fprintf(html_file, "<body>\n<style>html{background-color:black;color: white;}</style>\n<div id=\"images\">\n");
+            Bitmap frame(image_path[0]);
+            
+            for(int k = 0; k<10; k++)
+            {
+                fprintf(html_file, "<pre>\n" );
+                
+                Bitmap frame(image_path[k]);
+                int frame_width = frame.getWidth();
+                int frame_height = frame.getHeight();
+                int block_size = (frame_width / 50)<(frame_height / 50)? (frame_width / 50):(frame_height / 50);
+                int ascii_width = (frame_width / block_size);
+                int ascii_height = (frame_height / block_size);
+                
+                for(int i = 0; i <ascii_height; i++)
+                {
+                    fprintf(html_file,"\n");
+                    for(int j = 0; j<ascii_width; j++)
+                    {
+                        double gray=0;
+                        for(int m = 0; m < block_size; m++)
+                        {
+                            for (int n = 0; n <block_size;n++)
+                            {
+                                unsigned char red, green, blue;
+                                frame.getColor( (j*block_size+n), (i*block_size+m), red, green, blue);
+                                gray += 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
+                            }
+                        }
+                        gray = (int)gray/((block_size)*(block_size));
+                        new_red = (int) new_red/((block_size)*(block_size));
+                        new_green = (int) new_green/((block_size)*(block_size));
+                        new_blue = (int) new_blue/((block_size)*(block_size));
+                        if (shades[(int)(gray/32)] == ' ')
+                            fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">&nbsp;</a>", (int)new_red, (int)new_green, (int)new_blue);
+                        else
+                            fprintf(html_file, "<a style=\"color:rgb(%d,%d,%d);\">%c</a>",shades[(int)(gray/32)], (int)new_red, (int)new_green, (int)new_blue);
+                    }
+                }
+                
+                fprintf(html_file, "</pre>\n");
+            }
+            
+            fprintf(html_file, "</div><script type=\"text/javascript\">(function(){var pres = document.querySelectorAll(\"#images pre\");var len = pres.length;for(var i = 0; i < pres.length; i = i + 1) {pres[i].style.display = 'none';}var a = 0;window.setInterval(function() {pres[a].style.display = 'none';pres[(a+1)-len*Math.floor((a + 1)/len)].style.display = 'block';a = (a + 1)-len*Math.floor((a+1)/ len);}, 40);}());</script></body>\n");
+            fprintf(html_file, "</html>\n");
+            fclose(html_file);
+        }
+    }
         
         
         //  free memory
