@@ -578,7 +578,7 @@ int main(int argc, char** argv)
                 char* space = "&#160;";
                 FILE * html_file = fopen("animation.html","w");
                 fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
-                fprintf(html_file, "<body>\n<style>html{background-color:white;}</style>\n<div id=\"images\">\n");
+                fprintf(html_file, "<body>\n<style>html{background-color:black;color:white;}</style>\n<div id=\"images\">\n");
                 Bitmap frame(image_path[0]);
                 
                 for(int k = 0; k<10; k++)
@@ -598,7 +598,6 @@ int main(int argc, char** argv)
                         for(int j = 0; j<ascii_width; j++)
                         {
                             double gray=0;
-                            double new_red = 0, new_green = 0, new_blue = 0;
                             for(int m = 0; m < block_size; m++)
                             {
                                 for (int n = 0; n <block_size;n++)
@@ -606,9 +605,6 @@ int main(int argc, char** argv)
                                     unsigned char red, green, blue;
                                     frame.getColor( (j*block_size+n), (i*block_size+m), red, green, blue);
                                     gray += 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
-                                    new_red += red;
-                                    new_green += green;
-                                    new_blue += blue;
                                 }
                             }
                             gray = (int)gray/((block_size)*(block_size));
@@ -639,7 +635,7 @@ int main(int argc, char** argv)
             char* space = "&#160;";
             FILE * html_file = fopen("colored_animation.html","w");
             fprintf(html_file, "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>ASCII animation</title>\n</head>\n" );
-            fprintf(html_file, "<body>\n<style>html{background-color:black;color: white;}</style>\n<div id=\"images\">\n");
+            fprintf(html_file, "<body>\n<style>html{background-color:white;}</style>\n<div id=\"images\">\n");
             Bitmap frame(image_path[0]);
             
             for(int k = 0; k<10; k++)
@@ -659,6 +655,7 @@ int main(int argc, char** argv)
                     for(int j = 0; j<ascii_width; j++)
                     {
                         double gray=0;
+                        double new_red = 0, new_green = 0, new_blue = 0;
                         for(int m = 0; m < block_size; m++)
                         {
                             for (int n = 0; n <block_size;n++)
@@ -666,6 +663,9 @@ int main(int argc, char** argv)
                                 unsigned char red, green, blue;
                                 frame.getColor( (j*block_size+n), (i*block_size+m), red, green, blue);
                                 gray += 0.299 * (double)red + 0.587 * (double)green + 0.114 * (double)blue;
+                                new_red += red;
+                                new_green += green;
+                                new_blue += blue;
                             }
                         }
                         gray = (int)gray/((block_size)*(block_size));
@@ -686,7 +686,7 @@ int main(int argc, char** argv)
             fprintf(html_file, "</html>\n");
             fclose(html_file);
         }
-    }
+    
         
         
         //  free memory
